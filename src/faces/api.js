@@ -66,6 +66,7 @@ function solToLamportsString(sol) {
  * @param {{ solana?: string, base?: string }} [deps.payTo]  merchant wallet(s); env fallback X402_PAY_TO_SOLANA / X402_PAY_TO_BASE.
  * @param {Record<string,string>} [deps.prices]  per-endpoint USDC atomic prices ({ arm, snipe, disarm }).
  * @param {string} [deps.facilitatorUrl]  x402 facilitator base URL for /verify + /settle.
+ * @param {string} [deps.feePayer]  Solana facilitator sponsor fee-payer; env fallback X402_FEE_PAYER_SOLANA. The Solana lane self-disables without it.
  */
 export async function createSniperApiRouter(deps = {}) {
 	const express = await loadExpress();
