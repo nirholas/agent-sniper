@@ -230,6 +230,11 @@ Gating turns on when a merchant wallet is configured — `deps.payTo.solana` or 
 no `payTo` is set, the mutating routes still mount but answer `503`, so the
 server boots cleanly for local/dev without payment config.
 
+The Solana lane also needs a facilitator sponsor fee-payer — set
+`X402_FEE_PAYER_SOLANA` (or `deps.feePayer`). Without it the Solana lane
+self-disables (falling back to the Base lane, or the `503` guard if that's the
+only lane) rather than failing requests, and logs a one-time warning at boot.
+
 ```js
 import { serve } from '@three-ws/agent-sniper/api';
 
