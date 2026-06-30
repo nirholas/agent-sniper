@@ -1,0 +1,70 @@
+{
+	"$schema": "https://static.modelcontextprotocol.io/schemas/2025-12-11/server.schema.json",
+	"name": "io.github.nirholas/agent-sniper",
+	"title": "Agent Sniper",
+	"description": "Self-custodial pump.fun sniper: arm strategies, snipe, manage positions. Simulate by default.",
+	"websiteUrl": "https://three.ws",
+	"icons": [
+		{
+			"src": "https://three.ws/three-ws-mcp-icon.svg",
+			"mimeType": "image/svg+xml",
+			"sizes": [
+				"any"
+			]
+		}
+	],
+	"repository": {
+		"url": "https://github.com/nirholas/three.ws",
+		"source": "github",
+		"subfolder": "packages/agent-sniper"
+	},
+	"version": "0.1.0",
+	"packages": [
+		{
+			"registryType": "npm",
+			"identifier": "@three-ws/agent-sniper",
+			"version": "0.1.0",
+			"runtimeHint": "npx",
+			"transport": {
+				"type": "stdio"
+			},
+			"packageArguments": [
+				{
+					"type": "positional",
+					"value": "mcp",
+					"valueHint": "subcommand",
+					"description": "Run the stdio MCP server face. The same binary also serves 'run' (trade loop), 'serve' (x402 API), 'arm', and 'status'."
+				}
+			],
+			"environmentVariables": [
+				{
+					"name": "SNIPER_MODE",
+					"description": "Trade mode: simulate | live. simulate scores, guards, and logs every decision but NEVER broadcasts. live signs and broadcasts real transactions with real funds. Defaults to simulate — keep it there until your strategy is verified.",
+					"format": "string",
+					"isRequired": false,
+					"default": "simulate"
+				},
+				{
+					"name": "SNIPER_NETWORK",
+					"description": "Solana cluster to trade on: mainnet | devnet. Defaults to mainnet.",
+					"format": "string",
+					"isRequired": false,
+					"default": "mainnet"
+				},
+				{
+					"name": "SOLANA_RPC_URL",
+					"description": "Solana RPC endpoint. A public RPC rate-limits under the new-mint firehose, so live mode refuses to start without this set. Optional in simulate mode.",
+					"format": "string",
+					"isRequired": false
+				},
+				{
+					"name": "SOLANA_SECRET_KEY",
+					"description": "Default self-custody wallet secret for single-agent runs — base58, a JSON byte array, or 0x-hex. Stays on your machine; the engine signs locally. Required only for live trading. Treat it like a password.",
+					"format": "string",
+					"isRequired": false,
+					"isSecret": true
+				}
+			]
+		}
+	]
+}
